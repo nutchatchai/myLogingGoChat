@@ -15,6 +15,12 @@
 		4103DA0E24AC7B8D0039178D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4103DA0C24AC7B8D0039178D /* LaunchScreen.storyboard */; };
 		4103DA1624AC7D2F0039178D /* WeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4103DA1524AC7D2F0039178D /* WeatherResponse.swift */; };
 		416ACB9D24B6FAF90092C863 /* PaddingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416ACB9C24B6FAF90092C863 /* PaddingTextField.swift */; };
+		416ACC4524B880C10092C863 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416ACC4424B880C10092C863 /* LoginPresenter.swift */; };
+		416ACC4724B8812D0092C863 /* LoginProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416ACC4624B8812D0092C863 /* LoginProtocol.swift */; };
+		416ACC4924B886110092C863 /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416ACC4824B886110092C863 /* LoginRouter.swift */; };
+		416ACC4D24B88A1D0092C863 /* LoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416ACC4C24B88A1D0092C863 /* LoginInteractor.swift */; };
+		416ACC5024BC2BB40092C863 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416ACC4F24BC2BB40092C863 /* AppConstants.swift */; };
+		416ACC5224BC70050092C863 /* OTPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416ACC5124BC70050092C863 /* OTPViewController.swift */; };
 		4CC6E9C9DD84A21EEDC5151E /* Pods_myAlamofile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94BA55132F93BBDDA832E1BA /* Pods_myAlamofile.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +36,12 @@
 		4103DA0F24AC7B8D0039178D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4103DA1524AC7D2F0039178D /* WeatherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherResponse.swift; sourceTree = "<group>"; };
 		416ACB9C24B6FAF90092C863 /* PaddingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingTextField.swift; sourceTree = "<group>"; };
+		416ACC4424B880C10092C863 /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
+		416ACC4624B8812D0092C863 /* LoginProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginProtocol.swift; sourceTree = "<group>"; };
+		416ACC4824B886110092C863 /* LoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
+		416ACC4C24B88A1D0092C863 /* LoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInteractor.swift; sourceTree = "<group>"; };
+		416ACC4F24BC2BB40092C863 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		416ACC5124BC70050092C863 /* OTPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPViewController.swift; sourceTree = "<group>"; };
 		94BA55132F93BBDDA832E1BA /* Pods_myAlamofile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_myAlamofile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECAB3308643503D4BE14BD2D /* Pods-myAlamofile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-myAlamofile.debug.xcconfig"; path = "Target Support Files/Pods-myAlamofile/Pods-myAlamofile.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -84,17 +96,135 @@
 		4103DA0024AC7B8D0039178D /* myAlamofile */ = {
 			isa = PBXGroup;
 			children = (
-				4103DA0124AC7B8D0039178D /* AppDelegate.swift */,
-				4103DA0324AC7B8D0039178D /* SceneDelegate.swift */,
-				4103DA0524AC7B8D0039178D /* ViewController.swift */,
-				416ACB9C24B6FAF90092C863 /* PaddingTextField.swift */,
 				4103DA0724AC7B8D0039178D /* Main.storyboard */,
-				4103DA0A24AC7B8D0039178D /* Assets.xcassets */,
 				4103DA0C24AC7B8D0039178D /* LaunchScreen.storyboard */,
 				4103DA0F24AC7B8D0039178D /* Info.plist */,
-				4103DA1524AC7D2F0039178D /* WeatherResponse.swift */,
+				416ACC4224B880130092C863 /* common-utils */,
+				416ACC3424B87D750092C863 /* app-setting */,
+				416ACC3624B87DA30092C863 /* app-picture */,
+				416ACC3A24B87EBD0092C863 /* app-ui */,
+				416ACC3924B87DCF0092C863 /* app-modules */,
 			);
 			path = myAlamofile;
+			sourceTree = "<group>";
+		};
+		416ACC3424B87D750092C863 /* app-setting */ = {
+			isa = PBXGroup;
+			children = (
+				4103DA0324AC7B8D0039178D /* SceneDelegate.swift */,
+				4103DA0124AC7B8D0039178D /* AppDelegate.swift */,
+			);
+			path = "app-setting";
+			sourceTree = "<group>";
+		};
+		416ACC3624B87DA30092C863 /* app-picture */ = {
+			isa = PBXGroup;
+			children = (
+				4103DA0A24AC7B8D0039178D /* Assets.xcassets */,
+			);
+			path = "app-picture";
+			sourceTree = "<group>";
+		};
+		416ACC3924B87DCF0092C863 /* app-modules */ = {
+			isa = PBXGroup;
+			children = (
+				416ACC3B24B87F1D0092C863 /* countrycode-module */,
+			);
+			path = "app-modules";
+			sourceTree = "<group>";
+		};
+		416ACC3A24B87EBD0092C863 /* app-ui */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "app-ui";
+			sourceTree = "<group>";
+		};
+		416ACC3B24B87F1D0092C863 /* countrycode-module */ = {
+			isa = PBXGroup;
+			children = (
+				416ACC3C24B87F2F0092C863 /* view */,
+				416ACC3D24B87F370092C863 /* presenter */,
+				416ACC3E24B87F400092C863 /* router */,
+				416ACC3F24B87F490092C863 /* interactor */,
+				416ACC4124B87F610092C863 /* protocols */,
+				416ACC4024B87F550092C863 /* entity */,
+			);
+			path = "countrycode-module";
+			sourceTree = "<group>";
+		};
+		416ACC3C24B87F2F0092C863 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				4103DA0524AC7B8D0039178D /* ViewController.swift */,
+				416ACC5124BC70050092C863 /* OTPViewController.swift */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		416ACC3D24B87F370092C863 /* presenter */ = {
+			isa = PBXGroup;
+			children = (
+				416ACC4424B880C10092C863 /* LoginPresenter.swift */,
+			);
+			path = presenter;
+			sourceTree = "<group>";
+		};
+		416ACC3E24B87F400092C863 /* router */ = {
+			isa = PBXGroup;
+			children = (
+				416ACC4824B886110092C863 /* LoginRouter.swift */,
+			);
+			path = router;
+			sourceTree = "<group>";
+		};
+		416ACC3F24B87F490092C863 /* interactor */ = {
+			isa = PBXGroup;
+			children = (
+				416ACC4C24B88A1D0092C863 /* LoginInteractor.swift */,
+			);
+			path = interactor;
+			sourceTree = "<group>";
+		};
+		416ACC4024B87F550092C863 /* entity */ = {
+			isa = PBXGroup;
+			children = (
+				4103DA1524AC7D2F0039178D /* WeatherResponse.swift */,
+			);
+			path = entity;
+			sourceTree = "<group>";
+		};
+		416ACC4124B87F610092C863 /* protocols */ = {
+			isa = PBXGroup;
+			children = (
+				416ACC4624B8812D0092C863 /* LoginProtocol.swift */,
+			);
+			path = protocols;
+			sourceTree = "<group>";
+		};
+		416ACC4224B880130092C863 /* common-utils */ = {
+			isa = PBXGroup;
+			children = (
+				416ACC4E24BC2B9E0092C863 /* app-constants */,
+				416ACC4324B880210092C863 /* ui-utils */,
+			);
+			path = "common-utils";
+			sourceTree = "<group>";
+		};
+		416ACC4324B880210092C863 /* ui-utils */ = {
+			isa = PBXGroup;
+			children = (
+				416ACB9C24B6FAF90092C863 /* PaddingTextField.swift */,
+			);
+			path = "ui-utils";
+			sourceTree = "<group>";
+		};
+		416ACC4E24BC2B9E0092C863 /* app-constants */ = {
+			isa = PBXGroup;
+			children = (
+				416ACC4F24BC2BB40092C863 /* AppConstants.swift */,
+			);
+			path = "app-constants";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,11 +342,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				416ACC4524B880C10092C863 /* LoginPresenter.swift in Sources */,
 				4103DA0624AC7B8D0039178D /* ViewController.swift in Sources */,
 				4103DA0224AC7B8D0039178D /* AppDelegate.swift in Sources */,
+				416ACC4724B8812D0092C863 /* LoginProtocol.swift in Sources */,
 				4103DA0424AC7B8D0039178D /* SceneDelegate.swift in Sources */,
 				4103DA1624AC7D2F0039178D /* WeatherResponse.swift in Sources */,
+				416ACC5224BC70050092C863 /* OTPViewController.swift in Sources */,
+				416ACC4924B886110092C863 /* LoginRouter.swift in Sources */,
 				416ACB9D24B6FAF90092C863 /* PaddingTextField.swift in Sources */,
+				416ACC4D24B88A1D0092C863 /* LoginInteractor.swift in Sources */,
+				416ACC5024BC2BB40092C863 /* AppConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,6 +498,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NP7KBGYD9K;
 				INFOPLIST_FILE = myAlamofile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -380,6 +517,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NP7KBGYD9K;
 				INFOPLIST_FILE = myAlamofile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

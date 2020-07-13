@@ -12,9 +12,20 @@ import Alamofire
 import ObjectMapper
 
 class ViewController: UIViewController, UITextFieldDelegate {
+    
+    
+    
+
+    
+    
+    var arrayListCountryCode:Array<CountryCode> = Array()
+    var dataPresenter: ViewToPresenterLoginProtocol?
+
+    
     var CountryCode : [[String: Any]] = [[String: Any]]()
     var arrayList:Array<Forecast> = Array()
-    
+    var token:Array<Accesstoken> = Array()
+    var opt: Accesstoken?
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var btnContinue: UIButton!
     @IBOutlet weak var tblView: UITableView!
@@ -22,21 +33,58 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var btnDrop2: UIButton!
     @IBOutlet weak var btnDrop: UIButton!
     
+    
+    
+    
+    
+    
+    
+    
+    
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        dataPresenter?.startFetchingData()
         callService()
         tblView.separatorStyle = .none
         tblView.isHidden = true
         btnContinue.isEnabled = false
         tblView.dataSource = self
         self.textField.delegate = self
-        tblView.reloadData()
+       
         btnContinue2.isHidden = true
         btnContinue.isHidden = true
         
         
         
     }
+    
+    @IBAction func OnclickCon(_ sender:Any){
+    let headers2 = ["Accept": "application/json","Device-Id":"123456","Platform":"android"]
+    let num = textField.text
+    let URL2 = "https://gochat-web.secure-restapi.com/api/v1/otp"
+        let parameters = ["mobile_number" :  num]
+        Alamofire.request(URL2, method: .post,parameters:parameters as Parameters,encoding: JSONEncoding.default, headers: headers2).responseJSON {
+         response in
+           if(response.response?.statusCode == 200){
+                                     if let json = response.result.value as AnyObject? {
+                                      let arrayResponse = json["data"]
+                                        print(arrayResponse as Any)
+                                        let arrayObject = Mapper<Accesstoken>().map(JSONObject: arrayResponse as Any?)
+                                        self.onResponseSuccess2(Token: arrayObject)
+                                     // let arrayObject = Mapper<Accesstoken>().mapArray(JSONArray: arrayResponse as! [[String : Any]]);
+                                       // let arrayObject2 = Mapper<Accesstoken>().map(JSONString: arrayResponse as! String);
+                                     // self.onResponseSuccess(forecast: arrayObject)
+                                        
+                                     }
+                                 }
+            
+         }
+        
+    }
+    @IBAction func SaveTgw(sender: AnyObject) {
+    }
+    
     @IBAction func OnclickBtn2(_ sender: Any) {
         if tblView.isHidden{
             animate(toogle: true)
@@ -83,7 +131,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let isPhoneNumber = validate(num ?? "")
         print(isPhoneNumber)
         if isPhoneNumber == true{
-           // btnContinue.isHidden = false
             btnContinue.isHidden = true
             btnContinue2.isHidden = false
         }else{
@@ -93,9 +140,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
   
    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//    let allowedCharacters = CharacterSet.decimalDigits
-//    let characterSet = CharacterSet(charactersIn: string)
-//    return allowedCharacters.isSuperset(of: characterSet)
     
     let num = textField.text
     if num?.count ?? 0 == 0{
@@ -103,18 +147,23 @@ class ViewController: UIViewController, UITextFieldDelegate {
     let compSepByCharInSet1 = string.components(separatedBy: aSet1)
     let numberFiltered1 = compSepByCharInSet1.joined(separator: "")
         return string == numberFiltered1
+    }else{
+        let aSet1 = NSCharacterSet(charactersIn:"0123456789").inverted
+        let compSepByCharInSet1 = string.components(separatedBy: aSet1)
+        let numberFiltered1 = compSepByCharInSet1.joined(separator: "")
+            return string == numberFiltered1
     }
     
     
-    var fullString = textField.text ?? ""
-    fullString.append(string)
-    if range.length == 1 {
-        textField.text = format(phoneNumber: fullString, shouldRemoveLastDigit: true)
-    } else {
-        textField.text = format(phoneNumber: fullString)
-    }
-
-    return false
+//    var fullString = textField.text ?? ""
+//    fullString.append(string)
+//    if range.length == 1 {
+//        textField.text = format(phoneNumber: fullString, shouldRemoveLastDigit: true)
+//    } else {
+//        textField.text = format(phoneNumber: fullString)
+//    }
+//
+//    return false
     }
     
     
@@ -152,7 +201,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             number = number.replacingOccurrences(of: "(\\d{3})(\\d{3})(\\d+)", with: "$1-$2-$3", options: .regularExpression, range: range)
         }
         
-        if number.count == 12{
+        if number.count == 8{
             btnContinue2.isHidden = false
             btnContinue.isHidden = true
         }else{
@@ -177,39 +226,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                        }
 
         }
-//
-//        Alamofire.request(URL,method: .get,headers: headers
-//         ).responseObject { (response:DataResponse<WeatherResponse>) in
-//
-//            let weatherResponse = response.result.value
-//            print(weatherResponse?.success as Any)
-//
-//            if let threeDayForecast = weatherResponse?.data {
-//                for forecast in threeDayForecast {
-//                    if(forecast.calling_code != nil){
-                       
-                        
-//                        print(forecast.calling_code as Any)
-                        
-                       // self.onResponseSuccess(forecast:)
-                       // print(forecast.calling_code as Any)
-                        
-//                        self.CountryCode = forecast.calling_code
 
-
-
-//                        if let responseValue = response.result.value as! [String:Any]?{
-//                            if let responseCountry = responseValue["Forecast"] as! [[String:Any]]?{
-//                                self.CountryCode = responseCountry
-//                                self.tblView?.reloadData()
-//                            }
-//                        }
-//                    }
-//
-//                }
-//            }
-//        }
-        
 
     }
     func onResponseSuccess(forecast : Array<Forecast>) {
@@ -218,15 +235,40 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.tblView.reloadData()
         
     }
+    func onResponseSuccess2(Token : Accesstoken?) {
+
+          self.opt = Token
+        print(self.opt?.reference as Any)
+
+      }
 
     
 
 
 }
+extension ViewController:PresenterToViewLoginProtocol{
+    func onLoginResponseSuccess(countryCodeModelArraylist: Array<CountryCode>) {
+        
+        self.arrayListCountryCode = countryCodeModelArraylist
+        self.tblView.reloadData()
+    }
+    
+    func onLoginResponseFailed(error: String) {
+        let alert = UIAlertController(title: "Alert", message: "Problem Fetching Notice", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: UIAlertAction.Style.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    
+}
+
+
+
 extension ViewController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
         cell.textLabel?.text = arrayList[indexPath.row].calling_code
         return cell
         
@@ -235,6 +277,9 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         arrayList.count
     }
+    
+    
+    
    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
     let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
@@ -243,6 +288,9 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
     animate(toogle: false)
 
   }
+    
+    
+    
     
    
 }
